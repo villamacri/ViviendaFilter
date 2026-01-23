@@ -9,7 +9,8 @@ import java.util.Optional;
 
 public interface ViviendaRepository extends JpaRepository<Vivienda, Long>,
         JpaSpecificationExecutor<Vivienda> {
-    @Query("select v from Vivienda v where v.ciudad = ?1")
+
+    @Query("select v from Vivienda v where v.ciudad = :ciudad")
     Optional<Vivienda> findByCiudad(String ciudad);
 
 }

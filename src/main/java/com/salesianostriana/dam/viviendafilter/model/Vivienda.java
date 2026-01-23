@@ -7,7 +7,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@ToString
+@Table(name = "viviendas")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Builder
 public class Vivienda {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String titulo;
