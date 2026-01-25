@@ -25,21 +25,17 @@ public class ViviendaController {
 
     @GetMapping
     public Page<ViviendaResponse> getAllPage(
+            @RequestParam (required = false) String ciudad,
+            @RequestParam (required = false) String provincia,
+            @RequestParam (required = false) Double precioMin,
+            @RequestParam (required = false) Double precioMax,
+            @RequestParam (required = false) Integer numHab,
             @PageableDefault(
                     page = 0,
                     size = 10,
                     sort = "fechaPublicacion",
                     direction = Sort.Direction.DESC) Pageable pageable){
-        return  viviendaService.findViviendasPage(pageable);
+        return  viviendaService.findViviendasPage(ciudad, provincia, precioMin, precioMax, numHab, pageable);
     }
 
-    public ResponseEntity<List<Vivienda>> getViviendas(
-            @RequestParam (required = false) String ciudad,
-            @RequestParam (required = false) String provincia,
-            @RequestParam (required = false) Double precioMin,
-            @RequestParam (required = false) Double precioMax,
-            @RequestParam (required = false) Integer numHab
-    ){
-        return ResponseEntity.ok(viviendaService.buscarViviendas(ciudad, provincia, precioMin, precioMax, numHab));
-    }
 }

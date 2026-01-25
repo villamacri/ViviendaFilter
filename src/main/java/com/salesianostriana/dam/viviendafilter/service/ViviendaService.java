@@ -19,23 +19,13 @@ public class ViviendaService {
 
     private final ViviendaRepository viviendaRepository;
 
-    public Page<ViviendaResponse> findViviendasPage(Pageable pageable){
-
-        Page<Vivienda> result = viviendaRepository.findAll(pageable);
-
-        if(result.isEmpty()){
-            throw new ViviendaNotFoundException("No hay viviendas");
-        }
-
-        return result.map(ViviendaResponse::of);
-    }
-
-    public List<Vivienda> buscarViviendas(
+    public Page<ViviendaResponse> findViviendasPage(
             String ciudad,
             String provincia,
             Double precioMin,
             Double precioMax,
-            Integer numHab){
+            Integer numHab,
+            Pageable pageable){
         Specification<Vivienda> spec= Specification
                 .where(ViviendaSpecifications.hasCiudad(ciudad))
                 .and(ViviendaSpecifications.hasProvincia(provincia))
@@ -43,7 +33,13 @@ public class ViviendaService {
                 .and(ViviendaSpecifications.precioMenorQueMax(precioMax))
                 .and(ViviendaSpecifications.habitacionesMin(numHab));
 
-        return viviendaRepository.findAll(spec);
+        Page<Vivienda> result = viviendaRepository.findAll(spec, pageable);
+
+        if(result.isEmpty()){
+            throw new ViviendaNotFoundException("No hay viviendas");
+        }
+
+        return result.map(ViviendaResponse::of);
     }
 
 }
