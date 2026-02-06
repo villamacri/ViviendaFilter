@@ -24,7 +24,7 @@ public class ViviendaController {
     private final ViviendaService viviendaService;
 
     @GetMapping
-    public Page<ViviendaResponse> getAllPage(
+    public ResponseEntity<Page<ViviendaResponse>> getAllPage(
             @RequestParam (required = false) String ciudad,
             @RequestParam (required = false) String provincia,
             @RequestParam (required = false) Double precioMin,
@@ -35,7 +35,7 @@ public class ViviendaController {
                     size = 10,
                     sort = "fechaPublicacion",
                     direction = Sort.Direction.DESC) Pageable pageable){
-        return  viviendaService.findViviendasPage(ciudad, provincia, precioMin, precioMax, numHab, pageable);
+        return  ResponseEntity.ok(viviendaService.findViviendasPage(ciudad, provincia, precioMin, precioMax, numHab, pageable));
     }
 
 }
