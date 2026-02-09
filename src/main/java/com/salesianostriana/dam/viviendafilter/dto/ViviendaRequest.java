@@ -1,10 +1,12 @@
 package com.salesianostriana.dam.viviendafilter.dto;
 
+import com.salesianostriana.dam.viviendafilter.enums.EstadoVivienda;
 import com.salesianostriana.dam.viviendafilter.enums.TipoVivienda;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
+import org.aspectj.bridge.IMessage;
 
 @Builder
 public record ViviendaRequest(
@@ -28,6 +30,16 @@ public record ViviendaRequest(
         @Min(value = 1, message = "{viviendaRequest.banos.min}")
         Integer banos,
         @NotNull(message = "{viviendaRequest.tipo.notnull}")
-        TipoVivienda tipo
+        TipoVivienda tipo,
+        @NotNull(message = "{viviendaRequest.estado.notnull}")
+        EstadoVivienda estado,
+        @NotNull(message = "{viviendaRequest.ascensor.notnull}")
+        Boolean ascensor,
+        @NotNull(message = "{viviendaRequest.terraza.notnull}")
+        Boolean terraza,
+        @NotNull(message = "{viviendaRequest.garaje.notnull}")
+        Boolean garaje,
+        @NotNull(message = "{viviendaRequest.disponible.notnull}")
+        Boolean disponible
 ) {
 }
